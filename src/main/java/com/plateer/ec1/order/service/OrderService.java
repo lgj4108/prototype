@@ -10,7 +10,7 @@ import com.plateer.ec1.order.strategy.after.impl.FoAfterStrategy;
 import com.plateer.ec1.order.strategy.data.DataCreateStrategy;
 import com.plateer.ec1.order.strategy.data.impl.EcouponDataCreateStrategy;
 import com.plateer.ec1.order.strategy.data.impl.GeneralDataCreateStrategy;
-import com.plateer.ec1.payment.PaymentService;
+import com.plateer.ec1.payment.PayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     private final OrderHistoryService historyService;
-    private final PaymentService paymentService;
+    private final PayService payService;
     private final OrderRepository orderRepository;
 
     public void order(OrderRequest orderRequest) {
         log.info("OrderService.order request: {}", orderRequest);
-        OrderContext context = new OrderContext(historyService, paymentService, orderRepository);
+        OrderContext context = new OrderContext(historyService, payService, orderRepository);
         context.excute(getDataStrategy(orderRequest), getAfterStrategy(orderRequest), orderRequest);
     }
 

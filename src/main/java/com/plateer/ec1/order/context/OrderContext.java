@@ -9,7 +9,7 @@ import com.plateer.ec1.order.repository.OrderRepository;
 import com.plateer.ec1.order.strategy.after.AfterStrategy;
 import com.plateer.ec1.order.strategy.data.DataCreateStrategy;
 import com.plateer.ec1.order.validation.OrderValidator;
-import com.plateer.ec1.payment.PaymentService;
+import com.plateer.ec1.payment.PayService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -17,12 +17,12 @@ import java.util.Arrays;
 @Slf4j
 public class OrderContext {
     private OrderHistoryService historyService;
-    private PaymentService paymentService;
+    private PayService payService;
     private OrderRepository orderRepository;
 
-    public OrderContext(OrderHistoryService historyService, PaymentService paymentService, OrderRepository orderRepository) {
+    public OrderContext(OrderHistoryService historyService, PayService payService, OrderRepository orderRepository) {
         this.historyService = historyService;
-        this.paymentService = paymentService;
+        this.payService = payService;
         this.orderRepository = orderRepository;
     }
 
@@ -38,6 +38,9 @@ public class OrderContext {
 
             // 주문 데이터 입력
             insertOrderData(dto);
+
+            // 결제 처리
+            payService.approvePay(request.getPayInfo());
 
             // 금액검증
             amountValidation(request.getOrderNo());
