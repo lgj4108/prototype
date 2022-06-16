@@ -1,0 +1,8 @@
+package com.plateer.ec1.claim.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ClaimController {
+
+}

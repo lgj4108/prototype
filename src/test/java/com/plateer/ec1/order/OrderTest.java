@@ -28,6 +28,22 @@ public class OrderTest {
     }
 
     @Test
+    public void foMultipleGeneralOrder() {
+        PayInfo payInfo = new PayInfo();
+        payInfo.setType("inicis");
+        payInfo.setPayRequest("request");
+
+        OrderRequest request = new OrderRequest();
+        request.setOrderNo("O20220615");
+        request.setSystemType("FO");
+        request.setOrderType("general");
+        request.setPayInfo(payInfo);
+
+        orderService.order(request);
+        orderService.order(request);
+    }
+
+    @Test
     public void boGeneralOrder() {
         PayInfo payInfo = new PayInfo();
         payInfo.setType("point");

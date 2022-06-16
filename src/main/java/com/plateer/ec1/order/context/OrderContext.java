@@ -13,6 +13,7 @@ import com.plateer.ec1.payment.PayService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Slf4j
 public class OrderContext {
@@ -27,6 +28,7 @@ public class OrderContext {
     }
 
     public void excute(DataCreateStrategy create, AfterStrategy after, OrderRequest request) {
+        log.info("OrderContext.excute: {}", UUID.randomUUID().toString().substring(0,7));
         Long historyNo = historyService.insertOrderHistory(request);
         OrderDto dto = null;
         try {

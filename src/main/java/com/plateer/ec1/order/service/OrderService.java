@@ -14,6 +14,7 @@ import com.plateer.ec1.payment.PayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class OrderService {
     private final PayService payService;
     private final OrderRepository orderRepository;
 
+    @Transactional
     public void order(OrderRequest orderRequest) {
         log.info("OrderService.order request: {}", orderRequest);
         OrderContext context = new OrderContext(historyService, payService, orderRepository);
